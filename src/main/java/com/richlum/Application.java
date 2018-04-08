@@ -1,4 +1,4 @@
-package hello;
+package com.richlum;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class Application {
-	@Value("${message:Hello default}")
-	private String message;
-	
-	@RequestMapping("/")
-	public String getMessage() {
-		return this.message;
-	}
 	
 	public static final Logger log = LoggerFactory.getLogger(Application.class);
 	public static void main(String args[]) {

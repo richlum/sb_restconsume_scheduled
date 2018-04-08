@@ -38,6 +38,11 @@ dependencies {
     compile("com.fasterxml.jackson.core:jackson-databind")
     compile("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.9.5")
     compile("com.docusign:docusign-esign-java:2.4.2")
+    compile("org.springframework.boot:spring-boot-starter-parent:2.0.1.RELEASE")
+    //compile("org.springframework:gs-accessing-data-jpa:0.1.0")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("com.h2database:h2")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("junit:junit")
 }
 

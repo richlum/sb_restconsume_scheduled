@@ -1,4 +1,4 @@
-package hello;
+package com.richlum;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -22,6 +22,8 @@ public class ScheduledTask {
 		return tasks;
 	}
 	
+	// this allows any implementers of Task to be autowired into our same scheduler.
+	// nice to put all into same file for scheduling but not required.
 	@Autowired
 	public void setTask(List<Task> tasks) {
 		this.tasks = tasks;
@@ -34,6 +36,17 @@ public class ScheduledTask {
 		tasks.forEach(task -> {
 			log.info(cnt.incrementAndGet() + " *** TASK *** " +   task.run());
 		});
+		
+		/* dump values in EnvelopeRepository that was written to in PollDocusign */
+		repo.findAll().forEach((env) -> {
+			log.info("repo: " + env.toString());
+		});
 	}
 
+	// this gives us access to the enveloperepository 
+	private EnvelopeRepository repo = null;
+	@Autowired
+	public void setRepo(EnvelopeRepository repo) {
+		this.repo = repo;
+	}
 }
