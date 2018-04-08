@@ -1,3 +1,9 @@
+.gradle
+gradle-app.setting
 build/*
 .setting/*
 *.swp
+!gradle-wrapper.jar
+.gradletasknamecache
+# has docusign credentials
+*.yml

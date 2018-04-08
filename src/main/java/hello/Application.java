@@ -2,19 +2,31 @@ package hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
-//import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 @SpringBootApplication
-@EnableScheduling
+@RestController
 public class Application {
-	private static final Logger log = LoggerFactory.getLogger(Application.class);
+	@Value("${message:Hello default}")
+	private String message;
+	
+	@RequestMapping("/")
+	public String getMessage() {
+		return this.message;
+	}
+	
+	public static final Logger log = LoggerFactory.getLogger(Application.class);
 	public static void main(String args[]) {
 //		RestTemplate  restTemplate = new RestTemplate();
 //		Quote quote = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
 //		log.info(quote.toString());
-		SpringApplication.run(Application.class);
+		SpringApplication.run(Application.class,args);
 	}
+	
 }
+

@@ -32,8 +32,9 @@ bootRun {
 
 dependencies {
 	// groupid  :  artifactid  : version = maven gav @see http://search.maven.org/
+    compile("org.springframework.boot:spring-boot-starter-web") 
     compile("org.springframework.boot:spring-boot-starter")
-    compile("org.springframework:spring-web")
+    //compile("org.springframework:spring-web")
     compile("com.fasterxml.jackson.core:jackson-databind")
     compile("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.9.5")
     compile("com.docusign:docusign-esign-java:2.4.2")
