@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @EnableScheduling
 @Component
-public class ScheduledTask {
-	protected static final Logger log = LoggerFactory.getLogger(ScheduledTask.class);
+public class SchedulerTask {
+	protected static final Logger log = LoggerFactory.getLogger(SchedulerTask.class);
 	protected static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	
 	private List<Task> tasks;
@@ -37,16 +37,7 @@ public class ScheduledTask {
 			log.info(cnt.incrementAndGet() + " *** TASK *** " +   task.run());
 		});
 		
-		/* dump values in EnvelopeRepository that was written to in PollDocusign */
-		repo.findAll().forEach((env) -> {
-			log.info("repo: " + env.toString());
-		});
 	}
 
-	// this gives us access to the enveloperepository 
-	private EnvelopeRepository repo = null;
-	@Autowired
-	public void setRepo(EnvelopeRepository repo) {
-		this.repo = repo;
-	}
+
 }

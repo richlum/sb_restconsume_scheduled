@@ -6,8 +6,8 @@ import java.util.Date;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 @Component
-public class ReportCurrentTime implements Task {
-	protected static final org.slf4j.Logger log = LoggerFactory.getLogger(ReportCurrentTime.class);
+public class ReportCurrentTimeTask implements Task {
+	protected static final org.slf4j.Logger log = LoggerFactory.getLogger(ReportCurrentTimeTask.class);
 	protected static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	
 	@Override

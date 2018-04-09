@@ -76,15 +76,6 @@ public class OurEnvelop {
 		this.documentsCombinedUri   = envStat.getDocumentsCombinedUri();
 		this.certificateUri         = envStat.getCertificateUri();
 		this.templatesUri           = envStat.getTemplatesUri();
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 
 

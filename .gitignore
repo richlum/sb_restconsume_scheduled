@@ -7,3 +7,4 @@ build/*
 .gradletasknamecache
 # has docusign credentials
 *.yml
+*.log

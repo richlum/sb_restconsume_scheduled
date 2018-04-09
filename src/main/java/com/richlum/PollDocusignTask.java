@@ -20,8 +20,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class PollDocusign implements Task {
-	protected static final Logger log = LoggerFactory.getLogger(PollDocusign.class);
+public class PollDocusignTask implements Task {
+	protected static final Logger log = LoggerFactory.getLogger(PollDocusignTask.class);
 	
 	@Value("${inform.docusign.acct}")
 	private String acct;
@@ -39,7 +39,6 @@ public class PollDocusign implements Task {
 	public String run() {
 		String targ_date = getTargDate();
 		log.info(targ_date);
-		log.info(acct + " " + queryuri + " " + username + " " + password + " " + apikey + " " + daysback);
 		String fulluri = queryuri + acct + "/envelopes?from_date=" + getTargDate();
 		try {
 			RestTemplate rt = new RestTemplate();
@@ -53,42 +52,32 @@ public class PollDocusign implements Task {
 			
 			RequestEntity<String> req = new RequestEntity<String>(headers,HttpMethod.GET,
 					uri);
-
-//			ResponseEntity<EnvelopStatus[]> resp = rt.exchange(req, EnvelopStatus[].class);		
-//			//List<EnvelopStatus> responseType;
-//			//ResponseEntity<List<EnvelopStatus>> re = rt.exchange(req, responseType)
-//			String respAsString = "";
-//			for(EnvelopStatus envStat : resp.getBody() ) {
-//				respAsString = respAsString.concat(envStat.toString()).concat("\n");
-//				repo.save(envStat);
-//			}			
-//			return respAsString;
-			
-//			ResponseEntity<String> resp = rt.exchange(req, String.class);
-//			return resp.getBody();
 			
 			try {
 				ResponseEntity<EnvelopesInformation> resp = rt.exchange(req, EnvelopesInformation.class);
 				String respAsString = "";
+//				repo.deleteAll();   todo: do we want a clean reset each time?
 				if ((resp!=null)&&(resp.getBody()!=null)) {
 					for(Envelope  envStat : resp.getBody().getEnvelopes() ) {
-						respAsString = respAsString.concat(envStat.toString()).concat("\n");
+						log.info(getShortVersion(envStat));
 						repo.save(new OurEnvelop(envStat));
 					}			
 				}	
-				return respAsString;
+				return Long.toString(repo.count()) + " records in envelop repository";
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
-				return "";
-			}
-			
-			
-
-			
+				return "error " + e.getMessage();
+			}			
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			return "";
 		}
+	}
+	
+	public String getShortVersion(Envelope env) {
+		return "[ ".concat(env.getStatus()).concat(", ")
+					.concat(env.getEnvelopeId()).concat(", ")
+					.concat(env.getStatusChangedDateTime()).concat(" ] ");
 	}
 	
 	public String getTargDate() {
